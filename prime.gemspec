@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Prime numbers and factorization library.}
   spec.description   = %q{Prime numbers and factorization library.}
   spec.homepage      = "https://github.com/ruby/prime"
-  spec.license       = "MIT"
+  spec.license       = "BSD-2-Clause"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
