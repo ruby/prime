@@ -33,8 +33,9 @@ Prime.prime?(7)           #=> true
 8.prime?                  #=> false
 
 # Factorization in prime numbers
-Prime.prime_division(779)                           #=> [[19, 1], [41, 1]]
-Prime.int_from_prime_division([[19, 1], [41, 1]])   #=> 779
+Prime.prime_division(8959)                          #=> [[17, 2], [31, 1]]
+Prime.int_from_prime_division([[17, 2], [31, 1]])   #=> 8959
+17**2 * 31                                          #=> 8959
 ```
 
 ## Contributing
