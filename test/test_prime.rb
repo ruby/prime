@@ -263,8 +263,10 @@ class TestPrime < Test::Unit::TestCase
     end
 
     def test_prime_in_ractor
-      # Test usage of private constant...
-      assert_equal false, Ractor.new { ((2**13-1) * (2**17-1)).prime? }.take
+      assert_ractor(<<~RUBY, require: 'prime')
+        # Test usage of private constant...
+        assert_equal false, Ractor.new { ((2**13-1) * (2**17-1)).prime? }.take
+      RUBY
     end if defined?(Ractor)
   end
 
