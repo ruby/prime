@@ -1,5 +1,7 @@
 # Prime
 
+[![CI](https://github.com/ruby/prime/actions/workflows/test.yml/badge.svg)](https://github.com/ruby/prime/actions/workflows/test.yml)
+
 Prime numbers and factorization library.
 
 ## Installation
