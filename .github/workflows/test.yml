@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
-        ruby: [ 'head', '2.7', '2.6', '2.5' ]
+        ruby: [ 'head', '3.0', '2.7', '2.6', '2.5' ]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
