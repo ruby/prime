@@ -38,7 +38,7 @@ class Integer
   #
   # == Example
   #   ds = []
-  #   10.divisors{ |d| ds << d }
+  #   10.each_divisor{ |d| ds << d }
   #   ds  #=> [1, 2, 5, 10]
   def each_divisor
     block_given? ? divisors.each{ |d| yield(d) } : enum_for(:each_divisor)
