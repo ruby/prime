@@ -238,12 +238,13 @@ class TestPrime < Test::Unit::TestCase
       p2 = 2**17-1
       assert_equal [1, p1, p2, p1 * p2], (p1 * p2).divisors
 
-      assert_raises(ZeroDivisionError){ 0.divisors }
-      assert_equal [-1, 1], -1.divisors
-      assert_equal [-2, -1, 1, 2], -2.divisors
-      assert_equal [-3, -1, 1, 3], -3.divisors
-      assert_equal [-4, -2, -1, 1, 2, 4], -4.divisors
-      assert_equal [-6, -3, -2, -1, 1, 2, 3, 6], -6.divisors
+      assert_raises(ArgumentError){ 0.divisors }
+      assert_equal [1], -1.divisors
+      assert_equal [1, 2], -2.divisors
+      assert_equal [1, 3], -3.divisors
+      assert_equal [1, 2, 4], -4.divisors
+      assert_equal [1, 2, 3, 6], -6.divisors
+      assert_equal [1, 1_000_000_007], -1_000_000_007.divisors
     end
 
     def test_each_divisor_with_block
@@ -256,11 +257,11 @@ class TestPrime < Test::Unit::TestCase
       assert_equal [1, 2, 5, 10], ds
 
       assert_equal [1, 3], 3.each_divisor{}
-      assert_raises(ZeroDivisionError){ 0.each_divisor{} }
+      assert_raises(ArgumentError){ 0.each_divisor{} }
 
       ds = []
       -2.each_divisor{ |d| ds << d }
-      assert_equal [-2, -1, 1, 2], ds
+      assert_equal [1, 2], ds
     end
 
     def test_each_divisor_without_blcok
@@ -273,11 +274,11 @@ class TestPrime < Test::Unit::TestCase
       assert_equal [1, 2, 4], 4.each_divisor.to_a
       assert_equal [1, 2, 3, 6], 6.each_divisor.to_a
 
-      assert_raises(ZeroDivisionError){ 0.each_divisor.to_a }
-      assert_equal [-1, 1], -1.each_divisor.to_a
-      assert_equal [-2, -1, 1, 2], -2.each_divisor.to_a
-      assert_equal [-4, -2, -1, 1, 2, 4], -4.each_divisor.to_a
-      assert_equal [-6, -3, -2, -1, 1, 2, 3, 6], -6.each_divisor.to_a
+      assert_raises(ArgumentError){ 0.each_divisor.to_a }
+      assert_equal [1], -1.each_divisor.to_a
+      assert_equal [1, 2], -2.each_divisor.to_a
+      assert_equal [1, 2, 4], -4.each_divisor.to_a
+      assert_equal [1, 2, 3, 6], -6.each_divisor.to_a
     end
 
     def test_prime_division
