@@ -246,10 +246,27 @@ class TestPrime < Test::Unit::TestCase
       assert_equal [-6, -3, -2, -1, 1, 2, 3, 6], -6.divisors
     end
 
-    def test_each_divisor
-      d10 = []
-      10.each_divisor{ |d| d10 << d }
-      assert_equal [1, 2, 5, 10], d10
+    def test_each_divisor_with_block
+      ds = []
+      1.each_divisor{ |d| ds << d }
+      assert_equal [1], ds
+
+      ds = []
+      10.each_divisor{ |d| ds << d }
+      assert_equal [1, 2, 5, 10], ds
+
+      assert_equal [1, 3], 3.each_divisor{}
+      assert_raises(ZeroDivisionError){ 0.each_divisor{} }
+
+      ds = []
+      -2.each_divisor{ |d| ds << d }
+      assert_equal [-2, -1, 1, 2], ds
+    end
+
+    def test_each_divisor_without_blcok
+      enum = 5.each_divisor
+      assert_respond_to(enum, :each)
+      assert_kind_of(Enumerable, enum)
 
       assert_equal [1], 1.each_divisor.to_a
       assert_equal [1, 3], 3.each_divisor.to_a
