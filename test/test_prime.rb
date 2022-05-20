@@ -169,22 +169,33 @@ class TestPrime < Test::Unit::TestCase
     end
   end
 
-  class TestTrialDivisionGenerator < Test::Unit::TestCase
-    # The first 100 prime numbers
-    PRIMES = [
-      2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
-      41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
-      89, 97, 101, 103, 107, 109, 113, 127, 131,
-      137, 139, 149, 151, 157, 163, 167, 173, 179,
-      181, 191, 193, 197, 199, 211, 223, 227, 229,
-      233, 239, 241, 251, 257, 263, 269, 271, 277,
-      281, 283, 293, 307, 311, 313, 317, 331, 337,
-      347, 349, 353, 359, 367, 373, 379, 383, 389,
-      397, 401, 409, 419, 421, 431, 433, 439, 443,
-      449, 457, 461, 463, 467, 479, 487, 491, 499,
-      503, 509, 521, 523, 541,
-    ]
+  class TestEratosthenesGenerator < Test::Unit::TestCase
+    def test_each
+      primes = []
+      Prime.each(nil, Prime::EratosthenesGenerator.new) do |p|
+        break if p > 541
+        primes << p
+      end
+      assert_equal PRIMES, primes
+    end
 
+    def test_upper_bound
+      generator = Prime::EratosthenesGenerator.new(10)
+      assert_equal 10, generator.upper_bound
+      assert_equal PRIMES.take(4), generator.to_a
+    end
+
+    def test_rewind
+      generator = Prime::EratosthenesGenerator.new
+      assert_equal generator.next, 2
+      assert_equal generator.next, 3
+      generator.rewind
+      assert_equal generator.next, 2
+    end
+  end
+
+
+  class TestTrialDivisionGenerator < Test::Unit::TestCase
     def test_each
       primes = []
       Prime.each(nil, Prime::TrialDivisionGenerator.new) do |p|
@@ -192,6 +203,12 @@ class TestPrime < Test::Unit::TestCase
         primes << p
       end
       assert_equal PRIMES, primes
+    end
+
+    def test_upper_bound
+      generator = Prime::TrialDivisionGenerator.new(10)
+      assert_equal 10, generator.upper_bound
+      assert_equal PRIMES.take(4), generator.to_a
     end
 
     def test_rewind
@@ -210,6 +227,12 @@ class TestPrime < Test::Unit::TestCase
       assert_equal generator.next, 3
       generator.rewind
       assert_equal generator.next, 2
+    end
+
+    def test_upper_bound
+      generator = Prime::Generator23.new(10)
+      assert_equal 10, generator.upper_bound
+      assert_equal PRIMES.take(4), generator.to_a
     end
   end
 
