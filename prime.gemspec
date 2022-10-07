@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/ruby/prime"
   spec.licenses      = ["Ruby", "BSD-2-Clause"]
 
-  spec.files         = [".gitignore", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "lib/prime.rb", "prime.gemspec"]
+  spec.files         = ["LICENSE.txt", "README.md", "Rakefile", "lib/prime.rb", "prime.gemspec"]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
