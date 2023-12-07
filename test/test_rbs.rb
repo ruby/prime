@@ -1,3 +1,5 @@
+return unless RUBY_VERSION >= "3.0.0"
+
 require "test/unit"
 
 require "rbs"
