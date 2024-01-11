@@ -9,6 +9,6 @@ group :development do
 
   # RBS requires Ruby >= 3.0
   if RUBY_VERSION >= "3.0.0"
-    gem "rbs", "~> 3.4.0.dev", require: false, git: "https://github.com/ruby/rbs.git", branch: "master"
+    gem "rbs", "~> 3.4.0"
   end
 end
