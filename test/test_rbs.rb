@@ -39,6 +39,8 @@ module RBSTypeTest
     def test_int_from_prime_division
       assert_send_type "(::Array[[ ::Integer, ::Integer ]]) -> ::Integer",
                        Prime, :int_from_prime_division, [[3, 1], [19, 1]]
+      assert_send_type "(::Array[[ ::Integer, ::Integer ]]) -> ::Rational",
+                       Prime, :int_from_prime_division, [[-4, -2]]
     end
 
     def test_prime?
@@ -85,6 +87,8 @@ module RBSTypeTest
     def test_int_from_prime_division
       assert_send_type "(::Array[[ ::Integer, ::Integer ]]) -> ::Integer",
                        Prime.instance, :int_from_prime_division, [[3, 1], [19, 1]]
+      assert_send_type "(::Array[[ ::Integer, ::Integer ]]) -> ::Rational",
+                       Prime.instance, :int_from_prime_division, [[-4, -2]]
     end
 
     def test_prime?
