@@ -134,7 +134,7 @@ class Prime
   #     Prime.int_from_prime_division([[3, 2], [5, 1]])  #=> 45
   #     3**2 * 5                                         #=> 45
   #
-  def self.int_from_prime_division: (Array[[ Integer, Integer ]]) -> Integer
+  def self.int_from_prime_division: (Array[[ Integer, Integer ]]) -> (Integer | Rational)
 
   # <!--
   #   rdoc-file=lib/prime.rb
@@ -160,7 +160,7 @@ class Prime
   #     Prime.int_from_prime_division([[3, 2], [5, 1]])  #=> 45
   #     3**2 * 5                                         #=> 45
   #
-  def int_from_prime_division: (Array[[ Integer, Integer ]]) -> Integer
+  def int_from_prime_division: (Array[[ Integer, Integer ]]) -> (Integer | Rational)
 
   # <!--
   #   rdoc-file=lib/prime.rb
