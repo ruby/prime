@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem "logger"
   gem "rake"
   gem "test-unit"
   gem "test-unit-ruby-core"
