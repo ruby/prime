@@ -169,7 +169,7 @@ end
 
 class Prime
 
-  VERSION = "0.1.3"
+  VERSION = "0.1.4"
 
   include Enumerable
   include Singleton
