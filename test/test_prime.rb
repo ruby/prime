@@ -214,6 +214,73 @@ class TestPrime < Test::Unit::TestCase
   end
 
   class TestInteger < Test::Unit::TestCase
+    def test_divisors
+      assert_equal [1], 1.divisors
+      assert_equal [1, 2], 2.divisors
+      assert_equal [1, 3], 3.divisors
+      assert_equal [1, 2, 4], 4.divisors
+      assert_equal [1, 5], 5.divisors
+      assert_equal [1, 2, 3, 6], 6.divisors
+      assert_equal [1, 7], 7.divisors
+      assert_equal [1, 2, 4, 8], 8.divisors
+      assert_equal [1, 3, 9], 9.divisors
+      assert_equal [1, 2, 5, 10], 10.divisors
+      assert_equal [1, 2, 4, 5, 10, 20, 25, 50, 100], 100.divisors
+
+      # large prime number
+      assert_equal [1, 2**31-1], (2**31-1).divisors
+      assert_equal [1, 1_000_000_007], 1_000_000_007.divisors
+      assert_equal [1, 1_000_000_009], 1_000_000_009.divisors
+      assert_equal [1, 67_280_421_310_721], 67_280_421_310_721.divisors
+
+      # large composite number
+      p1 = 2**13-1
+      p2 = 2**17-1
+      assert_equal [1, p1, p2, p1 * p2], (p1 * p2).divisors
+
+      assert_raises(ArgumentError){ 0.divisors }
+      assert_equal [1], -1.divisors
+      assert_equal [1, 2], -2.divisors
+      assert_equal [1, 3], -3.divisors
+      assert_equal [1, 2, 4], -4.divisors
+      assert_equal [1, 2, 3, 6], -6.divisors
+      assert_equal [1, 1_000_000_007], -1_000_000_007.divisors
+    end
+
+    def test_each_divisor_with_block
+      ds = []
+      1.each_divisor{ |d| ds << d }
+      assert_equal [1], ds
+
+      ds = []
+      10.each_divisor{ |d| ds << d }
+      assert_equal [1, 2, 5, 10], ds
+
+      assert_equal [1, 3], 3.each_divisor{}
+      assert_raises(ArgumentError){ 0.each_divisor{} }
+
+      ds = []
+      -2.each_divisor{ |d| ds << d }
+      assert_equal [1, 2], ds
+    end
+
+    def test_each_divisor_without_blcok
+      enum = 5.each_divisor
+      assert_respond_to(enum, :each)
+      assert_kind_of(Enumerable, enum)
+
+      assert_equal [1], 1.each_divisor.to_a
+      assert_equal [1, 3], 3.each_divisor.to_a
+      assert_equal [1, 2, 4], 4.each_divisor.to_a
+      assert_equal [1, 2, 3, 6], 6.each_divisor.to_a
+
+      assert_raises(ArgumentError){ 0.each_divisor.to_a }
+      assert_equal [1], -1.each_divisor.to_a
+      assert_equal [1, 2], -2.each_divisor.to_a
+      assert_equal [1, 2, 4], -4.each_divisor.to_a
+      assert_equal [1, 2, 3, 6], -6.each_divisor.to_a
+    end
+
     def test_prime_division
       pd = PRIMES.inject(&:*).prime_division
       assert_equal PRIMES.map{|p| [p, 1]}, pd
