@@ -16,6 +16,56 @@ require "singleton"
 require "forwardable"
 
 class Integer
+  # Returns the positive divisors of +self+
+  #
+  # == Example
+  #   6.divisors   #=> [1, 2, 3, 6]
+  #   7.divisors   #=> [1, 7]
+  #   8.divisors   #=> [1, 2, 4, 8]
+  def divisors
+    if self < 1_000_000
+      return divisors_for_small_integer if self > 0
+      return abs.divisors if self < 0
+      raise ArgumentError.new("The divisors of 0 is all integer except 0")
+    end
+
+    if prime?
+      [1, self]
+    else
+      xs = prime_division.map{ |p, n| Array.new(n + 1){ |e| p**e } }
+      x = xs.pop
+      x.product(*xs).map{ |t| t.inject(:*) }.sort
+    end
+  end
+
+  private def divisors_for_small_integer
+    # O(√n) algorithm
+    n = self
+    s = Integer.sqrt(n)
+    res1 = []
+    res2 = []
+    i = 1
+    while i <= s
+      if self % i == 0
+        res1 << i
+        res2.unshift(n / i)
+      end
+      i += 1
+    end
+    res1.pop if s * s == n
+    res1.concat(res2)
+  end
+
+  # Iterates the given block for each divisor of +self+.
+  #
+  # == Example
+  #   ds = []
+  #   10.each_divisor{ |d| ds << d }
+  #   ds  #=> [1, 2, 5, 10]
+  def each_divisor
+    block_given? ? divisors.each{ |d| yield(d) } : enum_for(:each_divisor)
+  end
+
   # Re-composes a prime factorization and returns the product.
   #
   # See Prime#int_from_prime_division for more details.
